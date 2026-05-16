@@ -1,0 +1,1598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ATTAQ VINYL WRECKER</title>
+  <style>
+    :root {
+      --bg: #07110c;
+      --panel: #0d1913;
+      --panel2: #14241c;
+      --wood: #173427;
+      --wood2: #09140f;
+      --bakelite: #070a08;
+      --text: #e7f3ea;
+      --muted: #95b19f;
+      --accent: #7fd69a;
+      --accent2: #b9efc8;
+      --danger: #8f3b33;
+      --line: rgba(170,255,200,.16);
+      --shadow: 0 22px 70px rgba(0,0,0,.72);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 20% 8%, rgba(127,214,154,.15), transparent 24%),
+        radial-gradient(circle at 74% 4%, rgba(90,180,120,.10), transparent 28%),
+        radial-gradient(circle at 50% 70%, rgba(127,214,154,.04), transparent 34%),
+        linear-gradient(135deg, #020504 0%, #08110d 44%, #102019 100%);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      display: flex;
+      justify-content: center;
+      padding: 18px;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .38;
+      background:
+        repeating-radial-gradient(circle at 50% 50%, transparent 0 38px, rgba(127,214,154,.028) 39px, transparent 41px, transparent 74px),
+        repeating-linear-gradient(112deg, transparent 0 22px, rgba(200,255,215,.018) 23px, transparent 24px, transparent 54px),
+        radial-gradient(circle at 50% 50%, transparent 0 18%, rgba(170,255,200,.028) 18.4%, transparent 19.1%);
+      mix-blend-mode: screen;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .16;
+      background:
+        radial-gradient(circle at 18% 20%, rgba(186,240,199,.12), transparent 1px),
+        radial-gradient(circle at 68% 30%, rgba(186,240,199,.10), transparent 1px),
+        radial-gradient(circle at 42% 76%, rgba(186,240,199,.08), transparent 1px),
+        radial-gradient(circle at 84% 82%, rgba(186,240,199,.08), transparent 1px);
+      background-size: 120px 120px, 180px 180px, 150px 150px, 220px 220px;
+    }
+
+    .app {
+      width: min(1180px, 100%);
+      display: grid;
+      gap: 14px;
+    }
+
+    header,
+    .card,
+    .meter,
+    .knob,
+    .dropzone,
+    .scope-wrap,
+    .mini-widget,
+    .live-record-panel,
+    .devlog,
+    .tools-link {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(210,255,220,.07) 0%, rgba(210,255,220,.018) 12%, rgba(0,0,0,.28) 100%),
+        radial-gradient(circle at 12% 10%, rgba(127,214,154,.075), transparent 28%),
+        linear-gradient(135deg, #0c1510 0%, #17291f 34%, #060907 70%, #102018 100%);
+      border: 1px solid var(--line);
+      box-shadow:
+        inset 0 1px 0 rgba(255,235,190,.12),
+        inset 0 -1px 0 rgba(0,0,0,.82),
+        inset 0 0 30px rgba(215,173,69,.035),
+        0 18px 48px rgba(0,0,0,.58);
+      border-radius: 18px;
+    }
+
+    header::before,
+    .card::before,
+    .meter::before,
+    .knob::before,
+    .dropzone::before,
+    .scope-wrap::before,
+    .mini-widget::before,
+    .live-record-panel::before,
+    .devlog::before,
+    .tools-link::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: .32;
+      background:
+        linear-gradient(103deg, transparent 0%, rgba(255,255,255,.07) 1%, transparent 2%),
+        linear-gradient(142deg, transparent 16%, rgba(255,255,255,.055) 16.5%, transparent 17%),
+        linear-gradient(77deg, transparent 44%, rgba(255,255,255,.045) 44.3%, transparent 44.6%),
+        repeating-linear-gradient(90deg, transparent 0 12px, rgba(255,255,255,.015) 13px, transparent 14px, transparent 28px);
+      mix-blend-mode: screen;
+    }
+
+    header > *, .card > *, .meter > *, .knob > *, .dropzone > *, .scope-wrap > *, .mini-widget > *, .live-record-panel > *, .devlog > *, .tools-link > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      padding: 18px 20px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 5vw, 54px);
+      letter-spacing: -0.06em;
+      line-height: .9;
+      color: #aef0c2;
+      text-shadow: 0 0 24px rgba(127,214,154,.16), 0 2px 0 rgba(0,0,0,.55);
+    }
+
+    .subtitle {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 690px;
+    }
+
+    .tools-link {
+      display: block;
+      min-width: 265px;
+      padding: 14px 16px;
+      color: var(--text);
+      text-decoration: none;
+      transition: transform .12s ease, filter .12s ease, border-color .12s ease;
+    }
+
+    .tools-link:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.08);
+      border-color: rgba(255,255,255,.28);
+    }
+
+    .tools-link-kicker {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .tools-link-title {
+      display: block;
+      color: var(--accent);
+      font-size: 17px;
+      line-height: 1.1;
+      font-weight: 950;
+      letter-spacing: .02em;
+      margin-bottom: 4px;
+    }
+
+    .tools-link-subtitle {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.25;
+    }
+
+    .main {
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap: 14px;
+    }
+
+    .card h2 {
+      margin: 0;
+      padding: 16px 18px 0;
+      font-size: 17px;
+      letter-spacing: -.02em;
+    }
+
+    .transport {
+      padding: 16px 18px 18px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .dropzone {
+      border-style: dashed;
+      background: rgba(255,255,255,.035);
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+    }
+
+    .dropzone:hover, .dropzone.drag {
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.07);
+      border-color: rgba(255,255,255,.62);
+    }
+
+    .dropzone strong { display: block; margin-bottom: 5px; }
+    .dropzone span { color: var(--muted); font-size: 13px; }
+    input[type="file"] { display: none; }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    button {
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 14px;
+      padding: 11px 16px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.085), rgba(255,255,255,.018) 35%, rgba(0,0,0,.3)),
+        linear-gradient(135deg, #111 0%, #1b1b1b 45%, #090909 100%);
+      color: #f0f0f0;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform .12s ease, filter .12s ease, opacity .12s ease;
+      font-family: inherit;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.08),
+        inset 0 -1px 0 rgba(0,0,0,.75),
+        0 6px 14px rgba(0,0,0,.32);
+    }
+
+    button:hover { transform: translateY(-1px); filter: brightness(1.05); }
+    button:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+    button.danger {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.012) 35%, rgba(0,0,0,.32)),
+        linear-gradient(135deg, #3b1111 0%, #742020 45%, #250909 100%);
+      color: #fff2f2;
+    }
+    button.active { outline: 2px solid rgba(215,173,69,.5); }
+
+    .status {
+      min-height: 20px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    #downloadArea a, #liveRecordDownload a {
+      color: var(--accent);
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    canvas {
+      width: 100%;
+      display: block;
+      background: #030303;
+      border: 1px solid rgba(170,255,200,.10);
+      border-radius: 14px;
+    }
+
+    .visual-zone {
+      display: grid;
+      gap: 10px;
+    }
+
+    .scope-wrap { padding: 10px; }
+    .scope-wrap canvas { height: 64px; }
+
+    .mini-widgets {
+      display: grid;
+      grid-template-columns: 1.35fr .9fr;
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    .mini-widget {
+      padding: 12px;
+      min-height: 156px;
+    }
+
+    .mini-widget-title {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      font-weight: 700;
+      letter-spacing: .02em;
+    }
+
+    .turntable-shell {
+      height: 132px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      overflow: visible;
+      padding: 0;
+    }
+
+    .turntable {
+      position: relative;
+      width: 260px;
+      height: 132px;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .turntable::before {
+      content: none;
+    }
+
+    .vinyl-disc {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 132px;
+      height: 132px;
+      transform: translate(-50%, -50%) rotate(0deg);
+      border-radius: 50% !important;
+      background:
+        radial-gradient(circle, #b78d2f 0 8%, #2a220d 8.8% 12.8%, #080706 13.6% 17%, transparent 17.8%),
+        repeating-radial-gradient(circle, rgba(0,0,0,.68) 0 2px, rgba(255,255,255,.02) 2px 2.5px, rgba(0,0,0,.82) 3px 5px, rgba(255,255,255,.015) 5px 5.5px, rgba(0,0,0,.74) 6px 7px),
+        conic-gradient(from 0deg, #0b0d0c 0deg 180deg, #1b2420 180deg 360deg),
+        radial-gradient(circle, #1a1a1a, #020202 72%);
+      border: 3px solid #020202;
+      box-shadow:
+        inset 0 0 13px rgba(255,255,255,.05),
+        inset 0 0 32px rgba(0,0,0,.82),
+        0 6px 14px rgba(0,0,0,.45);
+      will-change: transform;
+      z-index: 2;
+    }
+
+    .vinyl-disc::before {
+      content: none;
+    }
+
+    .vinyl-disc::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 10px;
+      height: 10px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: #050505;
+      box-shadow: 0 0 0 2px rgba(255,255,255,.08);
+      z-index: 3;
+    }
+
+    .tonearm,
+    .tonearm::before,
+    .tonearm::after,
+    .needle-head,
+    .needle-head::after {
+      display: none !important;
+      content: none !important;
+    }
+
+    .simple-needle,
+    .simple-needle-arm {
+      display: none !important;
+      content: none !important;
+    }
+
+    .speed-readout {
+      display: none !important;
+      content: none !important;
+    }
+
+    .slip-light {
+      display: none !important;
+      content: none !important;
+    }
+
+    .slipping .slip-light {
+      display: none !important;
+      content: none !important;
+    }
+
+    .mini-vu-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      align-items: stretch;
+      height: 118px;
+    }
+
+    .mini-vu {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.04) 24%, rgba(0,0,0,.16)),
+        linear-gradient(135deg, #f3cf7a 0%, #e8a83b 52%, #b96b1f 100%);
+      border: 1px solid rgba(255,255,255,.14);
+      overflow: hidden;
+      box-shadow: inset 0 0 18px rgba(255,180,60,.20), inset 0 -10px 18px rgba(0,0,0,.18), 0 0 18px rgba(255,170,40,.08);
+    }
+
+    .mini-vu-label {
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      font-weight: 900;
+      color: rgba(40,18,0,.68);
+    }
+
+    .mini-needle {
+      position: absolute;
+      width: 2px;
+      height: 70px;
+      background: #101010;
+      bottom: -8px;
+      left: 50%;
+      transform-origin: bottom center;
+      transform: rotate(-38deg);
+      transition: transform .08s linear;
+      box-shadow: 0 0 3px rgba(0,0,0,.3);
+    }
+
+    .mini-vu-scale {
+      position: absolute;
+      left: 8px;
+      right: 8px;
+      bottom: 7px;
+      display: flex;
+      justify-content: space-between;
+      color: rgba(40,18,0,.6);
+      font-size: 8px;
+      font-weight: 800;
+    }
+
+    .meters {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .meter {
+      padding: 12px;
+      min-width: 0;
+    }
+
+    .meter .label { color: var(--muted); font-size: 12px; margin-bottom: 6px; }
+    .meter .value { font-size: 20px; font-weight: 800; letter-spacing: -.04em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    .live-record-panel {
+      display: grid;
+      gap: 10px;
+      padding: 12px;
+    }
+
+    .live-record-title {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .live-record-hint {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .live-record-panel.recording {
+      border-color: rgba(216,74,74,.65);
+      box-shadow: inset 0 0 18px rgba(216,74,74,.08), 0 0 18px rgba(216,74,74,.08);
+    }
+
+    .live-record-panel.recording .live-record-title::after {
+      content: " · REC";
+      color: #ff6b5d;
+    }
+
+    .controls {
+      padding: 16px 18px 18px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .knob {
+      padding: 13px;
+      display: grid;
+      gap: 9px;
+    }
+
+    .knob-info { width: 100%; display: grid; gap: 8px; }
+
+    .knob label {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-weight: 750;
+      font-size: 14px;
+    }
+
+    .knob label span:last-child {
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      height: 22px;
+      display: block;
+      appearance: none;
+      -webkit-appearance: none;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    input[type="range"]::-webkit-slider-runnable-track {
+      height: 6px;
+      background: linear-gradient(180deg, #373737, #121212);
+      border: 1px solid rgba(255,255,255,.25);
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 16px;
+      height: 20px;
+      margin-top: -8px;
+      background: linear-gradient(180deg, #f5f5f5, #aaa);
+      border: 1px solid #050505;
+      box-shadow: 0 0 0 1px rgba(255,255,255,.25);
+    }
+
+    input[type="range"]::-moz-range-track {
+      height: 6px;
+      background: linear-gradient(180deg, #373737, #121212);
+      border: 1px solid rgba(255,255,255,.25);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 16px;
+      height: 20px;
+      background: linear-gradient(180deg, #f5f5f5, #aaa);
+      border: 1px solid #050505;
+      border-radius: 4px;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .presets {
+      margin: 0 18px 18px;
+      padding: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      background:
+        linear-gradient(180deg, rgba(127,214,154,.075), rgba(0,0,0,.18)),
+        rgba(4, 12, 8, .42);
+      border: 1px solid rgba(170,255,200,.14);
+      border-radius: 16px;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.06),
+        inset 0 0 18px rgba(127,214,154,.035);
+    }
+
+    .presets::before {
+      content: "Presets";
+      flex-basis: 100%;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .presets .preset {
+      color: #07110c;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.04) 38%, rgba(0,0,0,.10)),
+        linear-gradient(135deg, #b9efc8 0%, #7fd69a 46%, #4f9f69 100%);
+      border-color: rgba(186,240,199,.42);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.28),
+        inset 0 -1px 0 rgba(0,0,0,.28),
+        0 6px 14px rgba(0,0,0,.25);
+    }
+
+    .presets .preset:hover {
+      filter: brightness(1.08);
+    }
+
+    .presets .preset[data-preset="reset"] {
+      color: #102018;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,.18) 40%, rgba(0,0,0,.04)),
+        linear-gradient(135deg, #f4fff6 0%, #dceee1 48%, #c2d2c8 100%);
+      border-color: rgba(255,255,255,.46);
+    }
+
+    .footer {
+      color: var(--muted);
+      text-align: center;
+      font-size: 12px;
+      padding: 2px;
+      display: grid;
+      gap: 4px;
+    }
+
+    .footer a {
+      color: var(--accent);
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .beta-note {
+      color: #777;
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    .devlog {
+      margin: 4px auto 0;
+      max-width: 760px;
+      color: #777;
+      font-size: 11px;
+      line-height: 1.45;
+      text-align: left;
+      padding: 10px 12px;
+    }
+
+    .devlog-title {
+      color: var(--muted);
+      font-weight: 800;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-size: 10px;
+    }
+
+    .devlog-entry { margin: 2px 0; }
+    .devlog-entry strong { color: var(--text); font-weight: 800; }
+
+    @media (max-width: 900px) {
+      .main { grid-template-columns: 1fr; }
+      header { align-items: flex-start; flex-direction: column; }
+    }
+
+    @media (max-width: 700px) {
+      .mini-widgets { grid-template-columns: 1fr; }
+      .mini-widget { min-height: auto; }
+    }
+
+    @media (max-width: 560px) {
+      body { padding: 10px; }
+      .controls { grid-template-columns: 1fr; }
+      .meters { grid-template-columns: 1fr 1fr; }
+      .scope-wrap canvas { height: 56px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app" id="recorder">
+    <header>
+      <div>
+        <h1>ATTAQ VINYL WRECKER</h1>
+        <div class="subtitle">A damaged vinyl record emulator for reverse playback, warped discs, dusty crackle, needle slips, locked grooves and old speaker decay.</div>
+      </div>
+      <a class="tools-link" href="https://artemyzen.github.io/attaq-audio-tools/" target="_blank" rel="noopener">
+        <span class="tools-link-kicker">More Tools</span>
+        <span class="tools-link-title">Other ATTAQ Audio Tools</span>
+        <span class="tools-link-subtitle">Open the full collection</span>
+      </a>
+    </header>
+
+    <main class="main">
+      <section class="card">
+        <h2>Audio</h2>
+        <div class="transport">
+          <label class="dropzone" id="dropzone">
+            <input id="file" type="file" accept="audio/*" />
+            <strong>Drop audio here or click</strong>
+            <span>mp3, wav, ogg, m4a – browser support may vary</span>
+          </label>
+
+          <div class="buttons">
+            <button id="play" disabled>Play</button>
+            <button id="stop" class="secondary" disabled>Stop</button>
+            <button id="loop" class="secondary" disabled>Loop: Off</button>
+            <button id="render" class="danger" disabled>Render WAV</button>
+          </div>
+
+          <div class="status" id="status">No file loaded.</div>
+          <div class="status" id="downloadArea"></div>
+
+          <div class="visual-zone">
+            <div class="scope-wrap">
+              <canvas id="scope" width="1200" height="300"></canvas>
+            </div>
+
+            <div class="mini-widgets">
+              <div class="mini-widget vinyl-widget">
+                <div class="mini-widget-title">Turntable</div>
+                <div class="turntable-shell">
+                  <div class="turntable" id="turntable">
+                    <div class="vinyl-disc" id="vinylDisc"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mini-widget vu-widget">
+                <div class="mini-widget-title">Output Level</div>
+                <div class="mini-vu-wrap">
+                  <div class="mini-vu">
+                    <div class="mini-vu-label">L</div>
+                    <div class="mini-needle" id="needleL"></div>
+                    <div class="mini-vu-scale"><span>-20</span><span>0</span><span>+3</span></div>
+                  </div>
+                  <div class="mini-vu">
+                    <div class="mini-vu-label">R</div>
+                    <div class="mini-needle" id="needleR"></div>
+                    <div class="mini-vu-scale"><span>-20</span><span>0</span><span>+3</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="meters">
+            <div class="meter"><div class="label">File</div><div class="value" id="fileName">—</div></div>
+            <div class="meter"><div class="label">Length</div><div class="value" id="duration">—</div></div>
+            <div class="meter"><div class="label">Sample Rate</div><div class="value" id="sampleRate">—</div></div>
+            <div class="meter"><div class="label">Mode</div><div class="value" id="modeText">Stopped</div></div>
+          </div>
+
+          <div class="live-record-panel" id="liveRecordPanel">
+            <div class="live-record-title">Live Record</div>
+            <div class="buttons">
+              <button id="recordLive" class="secondary" disabled>Record Live</button>
+              <button id="stopRecord" class="danger" disabled>Stop Record</button>
+            </div>
+            <div class="live-record-hint">Records the actual preview output in realtime, including slider movements. Export format: WAV.</div>
+            <div class="status" id="liveRecordStatus">Live recorder is idle.</div>
+            <div class="status" id="liveRecordDownload"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Vinyl Controls</h2>
+        <div class="controls" id="controls"></div>
+        <div class="presets">
+          <button class="secondary preset" data-preset="dustyMemory">Dusty Memory</button>
+          <button class="secondary preset" data-preset="brokenDisk">Broken Disk</button>
+          <button class="secondary preset" data-preset="reset">Reset</button>
+        </div>
+      </section>
+    </main>
+
+    <div class="footer">
+      <div>By Artemy Zen · <a href="https://t.me/archichtotodelajet" target="_blank" rel="noopener">Telegram</a> · v 0.1.1</div>
+      <div class="beta-note">Beta version. Render may not perfectly match preview yet. Development is in progress.</div>
+      <div class="devlog">
+        <div class="devlog-title">Devlog</div>
+        <div class="devlog-entry"><strong>v 0.1.1</strong> – First public beta version.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const PARAMS = [
+      { id: 'speed', name: 'Record Speed', min: -200, max: 200, value: 100, suffix: '%', hint: 'Playback speed. Negative values play the record backwards.' },
+      { id: 'input', name: 'Input Signal', min: 0, max: 200, value: 100, suffix: '%', hint: 'Gain of the loaded audio before vinyl noise, scratches and filtering.' },
+      { id: 'warp', name: 'Warp', min: 0, max: 100, value: 5, hint: 'Slow pitch wobble from a slightly bent record.' },
+      { id: 'motor', name: 'Motor Instability', min: 0, max: 100, value: 14, hint: 'Nervous mechanical speed jitter from a tired turntable.' },
+      { id: 'noise', name: 'Vinyl Noise', min: 0, max: 100, value: 18, hint: 'Constant dusty surface noise and low vinyl bed.' },
+      { id: 'crackle', name: 'Dust & Crackle', min: 0, max: 100, value: 33, hint: 'Random clicks, dust pops and tiny static spikes.' },
+      { id: 'scratch', name: 'Scratch Damage', min: 0, max: 100, value: 0, hint: 'Short harsh needle scratches across damaged grooves.' },
+      { id: 'slip', name: 'Needle Slip', min: 0, max: 10, value: 0, hint: 'Subtle needle jumps. 10 is still controlled, not total chaos.' },
+      { id: 'speaker', name: 'Speaker Age', min: 0, max: 100, value: 35, hint: 'EQ-only aging: turns the sound into old radio / gramophone / telephone.' },
+      { id: 'wear', name: 'Groove Wear', min: 0, max: 100, value: 0, hint: 'Worn groove detail loss, muffling and unstable contact.' },
+      { id: 'output', name: 'Output Level', min: 0, max: 150, value: 100, suffix: '%', hint: 'Final output gain.' }
+    ];
+
+    const state = {
+      audioCtx: null,
+      buffer: null,
+      processor: null,
+      gain: null,
+      analyser: null,
+      playing: false,
+      loop: false,
+      raf: null,
+      fileName: '',
+      readPos: 0,
+      lastFrameTime: performance.now(),
+      discAngle: 0,
+      currentRate: 1,
+      slipActive: 0,
+      slipCooldown: 0,
+      scratchActive: 0,
+      recording: false,
+      recordChunks: [],
+      recordSampleRate: 44100,
+      recordChannels: 2,
+      values: Object.fromEntries(PARAMS.map(p => [p.id, p.value]))
+    };
+
+    const els = {
+      file: document.getElementById('file'),
+      dropzone: document.getElementById('dropzone'),
+      play: document.getElementById('play'),
+      stop: document.getElementById('stop'),
+      loop: document.getElementById('loop'),
+      render: document.getElementById('render'),
+      recordLive: document.getElementById('recordLive'),
+      stopRecord: document.getElementById('stopRecord'),
+      liveRecordPanel: document.getElementById('liveRecordPanel'),
+      liveRecordStatus: document.getElementById('liveRecordStatus'),
+      liveRecordDownload: document.getElementById('liveRecordDownload'),
+      status: document.getElementById('status'),
+      downloadArea: document.getElementById('downloadArea'),
+      controls: document.getElementById('controls'),
+      scope: document.getElementById('scope'),
+      recorder: document.getElementById('recorder'),
+      vinylDisc: document.getElementById('vinylDisc'),
+      tonearm: document.getElementById('tonearm'),
+      turntable: document.getElementById('turntable'),
+      speedReadout: document.getElementById('speedReadout'),
+      needleL: document.getElementById('needleL'),
+      needleR: document.getElementById('needleR'),
+      modeText: document.getElementById('modeText'),
+      fileName: document.getElementById('fileName'),
+      duration: document.getElementById('duration'),
+      sampleRate: document.getElementById('sampleRate')
+    };
+
+    function ensureContext() {
+      if (!state.audioCtx) state.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      return state.audioCtx;
+    }
+
+    function buildControls() {
+      els.controls.innerHTML = PARAMS.map(p => `
+        <div class="knob">
+          <div class="knob-info">
+            <label for="${p.id}"><span>${p.name}</span><span id="${p.id}Value">${formatParamValue(p, p.value)}</span></label>
+            <input id="${p.id}" type="range" min="${p.min}" max="${p.max}" value="${p.value}" />
+            <div class="hint">${p.hint}</div>
+          </div>
+        </div>
+      `).join('');
+
+      PARAMS.forEach(p => {
+        const slider = document.getElementById(p.id);
+        slider.addEventListener('input', () => {
+          state.values[p.id] = Number(slider.value);
+          document.getElementById(`${p.id}Value`).textContent = formatParamValue(p, Number(slider.value));
+          updateModeReadout();
+        });
+      });
+    }
+
+    function formatParamValue(param, value) {
+      if (param.id === 'speed') return `${value > 0 ? '+' : ''}${value}%`;
+      if (param.suffix) return `${value}${param.suffix}`;
+      return value;
+    }
+
+    function setPreset(name) {
+      const presets = {
+        dustyMemory: { speed: 100, input: 100, warp: 5, motor: 14, noise: 18, crackle: 33, scratch: 0,  slip: 0, speaker: 35, wear: 0,  output: 100 },
+        brokenDisk:  { speed: 100, input: 100, warp: 22, motor: 12, noise: 22, crackle: 28, scratch: 22, slip: 4, speaker: 67, wear: 32, output: 100 },
+        reset:       { speed: 100, input: 100, warp: 0,  motor: 0,  noise: 0,  crackle: 0,  scratch: 0,  slip: 0, speaker: 0,  wear: 0,  output: 100 }
+      };
+
+      Object.entries(presets[name]).forEach(([id, val]) => {
+        state.values[id] = val;
+        const slider = document.getElementById(id);
+        if (!slider) return;
+        slider.value = val;
+        const param = PARAMS.find(p => p.id === id);
+        document.getElementById(`${id}Value`).textContent = formatParamValue(param, val);
+      });
+      updateModeReadout();
+    }
+
+    async function loadFile(file) {
+      try {
+        stop();
+        els.downloadArea.innerHTML = '';
+        els.liveRecordDownload.innerHTML = '';
+        const ctx = ensureContext();
+        els.status.textContent = 'Decoding audio...';
+        els.modeText.textContent = 'LOADING';
+        const arr = await file.arrayBuffer();
+        state.buffer = await ctx.decodeAudioData(arr);
+        state.fileName = file.name;
+        state.readPos = 0;
+        els.fileName.textContent = shorten(file.name, 18);
+        els.duration.textContent = `${state.buffer.duration.toFixed(1)}s`;
+        els.sampleRate.textContent = `${Math.round(state.buffer.sampleRate / 1000)}k`;
+        els.play.disabled = false;
+        els.stop.disabled = false;
+        els.loop.disabled = false;
+        els.render.disabled = false;
+        els.recordLive.disabled = false;
+        els.status.textContent = 'Ready. Press PLAY or RENDER WAV.';
+        els.modeText.textContent = 'READY';
+        drawBufferWaveform(state.buffer);
+      } catch (err) {
+        console.error(err);
+        els.status.textContent = 'Could not read this file. Try WAV or MP3.';
+        els.modeText.textContent = 'ERROR';
+      }
+    }
+
+    function shorten(str, n) {
+      return str.length > n ? str.slice(0, n - 1) + '…' : str;
+    }
+
+    async function play() {
+      if (!state.buffer) return;
+      const ctx = ensureContext();
+      await ctx.resume();
+      stop(false);
+
+      const processor = ctx.createScriptProcessor(1024, 0, 2);
+      const gain = ctx.createGain();
+      const analyser = ctx.createAnalyser();
+      analyser.fftSize = 2048;
+      gain.gain.value = 0;
+
+      processor.onaudioprocess = processVinylBlock;
+      processor.connect(gain);
+      gain.connect(analyser);
+      analyser.connect(ctx.destination);
+
+      const now = ctx.currentTime;
+      gain.gain.setValueAtTime(0, now);
+      gain.gain.linearRampToValueAtTime(1, now + 0.035);
+
+      state.processor = processor;
+      state.gain = gain;
+      state.analyser = analyser;
+      state.playing = true;
+      state.lastFrameTime = performance.now();
+
+      if (state.values.speed < 0 && state.readPos <= 0) state.readPos = state.buffer.length - 1;
+      if (state.values.speed >= 0 && state.readPos >= state.buffer.length - 1) state.readPos = 0;
+
+      els.play.textContent = 'RESTART';
+      els.play.classList.add('active');
+      els.stop.classList.remove('active');
+      els.status.textContent = 'Playing. Twist the sliders.';
+      updateModeReadout();
+      animateVisuals();
+    }
+
+    function stop(updateStatus = true) {
+      if (state.raf) cancelAnimationFrame(state.raf);
+      state.raf = null;
+
+      const ctx = state.audioCtx;
+      const processor = state.processor;
+      const gain = state.gain;
+      const analyser = state.analyser;
+
+      if (ctx && gain) {
+        const now = ctx.currentTime;
+        try {
+          gain.gain.cancelScheduledValues(now);
+          gain.gain.setValueAtTime(gain.gain.value, now);
+          gain.gain.linearRampToValueAtTime(0, now + 0.018);
+        } catch(e) {}
+        setTimeout(() => {
+          try { processor && processor.disconnect(); } catch(e) {}
+          try { gain && gain.disconnect(); } catch(e) {}
+          try { analyser && analyser.disconnect(); } catch(e) {}
+        }, 40);
+      } else {
+        try { processor && processor.disconnect(); } catch(e) {}
+        try { gain && gain.disconnect(); } catch(e) {}
+        try { analyser && analyser.disconnect(); } catch(e) {}
+      }
+
+      state.processor = null;
+      state.gain = null;
+      state.analyser = null;
+      state.playing = false;
+      state.slipActive = 0;
+      state.scratchActive = 0;
+      els.play.textContent = 'PLAY';
+      els.play.classList.remove('active');
+      els.stop.classList.add('active');
+      els.turntable.classList.remove('slipping');
+      if (els.needleL) els.needleL.style.transform = 'rotate(-38deg)';
+      if (els.needleR) els.needleR.style.transform = 'rotate(-38deg)';
+      if (updateStatus && state.buffer) {
+        els.status.textContent = 'Stopped.';
+        els.modeText.textContent = 'STOPPED';
+      }
+    }
+
+    function processVinylBlock(event) {
+      if (!state.buffer) return;
+      const outputBuffer = event.outputBuffer;
+      const leftOut = outputBuffer.getChannelData(0);
+      const rightOut = outputBuffer.getChannelData(1);
+      const values = state.values;
+      const buffer = state.buffer;
+      const length = buffer.length;
+      const sampleRate = buffer.sampleRate;
+      const leftIn = buffer.getChannelData(0);
+      const rightIn = buffer.numberOfChannels > 1 ? buffer.getChannelData(1) : leftIn;
+
+      const speed = values.speed / 100;
+      const absSpeed = Math.abs(speed);
+      const direction = speed < 0 ? -1 : 1;
+      const warpDepth = values.warp / 100 * 0.09;
+      const motorDepth = values.motor / 100 * 0.045;
+      const noiseGain = Math.pow(values.noise / 100, 1.65) * 0.11;
+      const crackleAmount = values.crackle / 100;
+      const scratchAmount = values.scratch / 100;
+      const slipAmount = values.slip / 100;
+      const fragmentSamples = Math.round((0.07 + slipAmount * 0.42 + Math.random() * 0.28) * sampleRate);
+      const speaker = values.speaker / 100;
+      const wear = values.wear / 100;
+      const output = values.output / 100;
+      const input = values.input / 100;
+      const speakerLowpass = 1 - (speaker * 0.38 + wear * 0.52);
+      const mono = Math.max(speaker * 0.78, wear * 0.35);
+
+      for (let i = 0; i < leftOut.length; i++) {
+        const globalSample = Math.floor(state.readPos + i);
+        const sec = state.readPos / sampleRate;
+        const warp = Math.sin(sec * Math.PI * 2 * 0.55) * warpDepth;
+        const warp2 = Math.sin(sec * Math.PI * 2 * 0.19 + 1.7) * warpDepth * 0.45;
+        const motor = (Math.random() - 0.5) * motorDepth + Math.sin(sec * Math.PI * 2 * 8.3) * motorDepth * 0.25;
+        let rate = direction * absSpeed * Math.max(0.005, 1 + warp + warp2 + motor);
+
+        if (Math.abs(speed) < 0.01) rate = 0;
+
+        if (state.slipCooldown > 0) state.slipCooldown--;
+        if (state.slipActive > 0) {
+          state.slipActive--;
+          rate *= 0.72 + Math.random() * 0.16;
+        } else if (slipAmount > 0 && state.slipCooldown <= 0 && Math.random() < slipAmount * 0.00072) {
+          const jump = fragmentSamples * (0.65 + Math.random() * 0.9) * direction;
+          state.readPos -= jump;
+          state.slipActive = Math.floor(1200 + Math.random() * 5200);
+          state.slipCooldown = Math.floor(9000 - slipAmount * 6500);
+        }
+
+        if (state.scratchActive > 0) state.scratchActive--;
+        else if (scratchAmount > 0 && Math.random() < scratchAmount * 0.00038) {
+          state.scratchActive = Math.floor(250 + Math.random() * 1400);
+        }
+
+        let l = readInterpolated(leftIn, state.readPos, length) * input;
+        let r = readInterpolated(rightIn, state.readPos, length) * input;
+
+        const surface = (Math.random() * 2 - 1) * noiseGain;
+        l += surface;
+        r += surface * (0.8 + Math.random() * 0.4);
+
+        if (crackleAmount > 0 && Math.random() < crackleAmount * crackleAmount * 0.006) {
+          const click = (Math.random() * 2 - 1) * (0.16 + crackleAmount * 0.6);
+          l += click;
+          r += click * (0.6 + Math.random() * 0.8);
+        }
+
+        if (state.scratchActive > 0) {
+          const scratch = (Math.random() * 2 - 1) * scratchAmount * 0.85;
+          const scratchTone = Math.sin(globalSample * 0.62) * scratchAmount * 0.22;
+          l += scratch + scratchTone;
+          r += scratch * 0.9 - scratchTone;
+        }
+
+        const mid = (l + r) * 0.5;
+        l = l * (1 - mono) + mid * mono;
+        r = r * (1 - mono) + mid * mono;
+
+        l = applySpeakerAndWear(l, speakerLowpass, speaker, wear, 0);
+        r = applySpeakerAndWear(r, speakerLowpass, speaker, wear, 1);
+
+        l = Math.tanh(l * (1 + wear * 0.45));
+        r = Math.tanh(r * (1 + wear * 0.45));
+
+        l *= output;
+        r *= output;
+
+        leftOut[i] = clamp(l, -1, 1);
+        rightOut[i] = clamp(r, -1, 1);
+
+        if (state.recording) pushRecordSample(leftOut[i], rightOut[i]);
+
+        state.readPos += rate;
+
+        if (state.loop) {
+          while (state.readPos < 0) state.readPos += length;
+          while (state.readPos >= length) state.readPos -= length;
+        } else if (state.readPos < 0 || state.readPos >= length) {
+          state.readPos = clamp(state.readPos, 0, length - 1);
+          setTimeout(() => {
+            if (state.recording) stopLiveRecording(true);
+            else stop(false);
+          }, 0);
+          break;
+        }
+      }
+
+      state.currentRate = speed;
+    }
+
+    let speakerMemory = [[0, 0, 0, 0], [0, 0, 0, 0]];
+    function applySpeakerAndWear(x, lowpassMix, speaker, wear, channel) {
+      const age = speaker;
+
+      // EQ-only speaker age. Higher values become clearly old radio / gramophone / telephone:
+      // lows are cut, highs are cut, mids and nasal presence are pushed forward.
+      const lowpassCoeff = 0.34 - age * 0.27 - wear * 0.05;
+      const highpassCoeff = 0.012 + age * 0.105;
+      const bodyCoeff = 0.035 + age * 0.055;
+      const presenceCoeff = 0.12 + age * 0.05;
+
+      const lp = speakerMemory[channel][0] + (x - speakerMemory[channel][0]) * Math.max(0.012, lowpassCoeff);
+      speakerMemory[channel][0] = lp;
+
+      const bass = speakerMemory[channel][1] + (x - speakerMemory[channel][1]) * highpassCoeff;
+      speakerMemory[channel][1] = bass;
+
+      const band = lp - bass * (0.42 + age * 0.92);
+
+      const body = speakerMemory[channel][2] + (band - speakerMemory[channel][2]) * bodyCoeff;
+      speakerMemory[channel][2] = body;
+
+      const presenceBase = band - body * (0.58 + age * 0.25);
+      const presence = speakerMemory[channel][3] + (presenceBase - speakerMemory[channel][3]) * presenceCoeff;
+      speakerMemory[channel][3] = presence;
+
+      const radioTone = (
+        band * (1.15 + age * 1.75) +
+        presence * age * 3.1
+      ) * (0.78 + age * 0.1) * (1 - wear * 0.1);
+
+      return x * (1 - age) + radioTone * age;
+    }
+
+    function readInterpolated(data, pos, length) {
+      const p = clamp(pos, 0, length - 2);
+      const i = Math.floor(p);
+      const frac = p - i;
+      return data[i] * (1 - frac) + data[i + 1] * frac;
+    }
+
+    function animateVisuals() {
+      if (!state.playing) return;
+      const now = performance.now();
+      const dt = Math.min(0.08, (now - state.lastFrameTime) / 1000);
+      state.lastFrameTime = now;
+
+      const v = state.values;
+      const speed = v.speed / 100;
+      const visualWarp = Math.sin(now * 0.0032) * (v.warp / 100) * 0.32;
+      const visualMotor = (Math.random() - 0.5) * (v.motor / 100) * 0.42;
+      const slipDrag = state.slipActive > 0 ? -Math.sign(speed || 1) * (0.75 + Math.random() * 0.45) : 0;
+      const scratchDrag = state.scratchActive > 0 ? (Math.random() - 0.5) * (v.scratch / 100) * 1.2 : 0;
+      const effectiveSpeed = speed + visualWarp + visualMotor + slipDrag + scratchDrag;
+
+      state.discAngle += effectiveSpeed * dt * 360;
+      els.vinylDisc.style.transform = `translate(-50%, -50%) rotate(${state.discAngle}deg)`;
+
+      els.turntable.classList.toggle('slipping', state.slipActive > 0 || state.scratchActive > 0);
+
+      drawScope();
+      state.raf = requestAnimationFrame(animateVisuals);
+    }
+
+    function updateModeReadout() {
+      if (!state.playing) return;
+      const s = state.values.speed;
+      if (Math.abs(s) < 1) els.modeText.textContent = 'STALLED';
+      else if (s < 0) els.modeText.textContent = 'REVERSE';
+      else els.modeText.textContent = 'PLAYING';
+    }
+
+    function drawBufferWaveform(buffer) {
+      const canvas = els.scope;
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width, h = canvas.height;
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = '#030303';
+      ctx.fillRect(0, 0, w, h);
+      const data = buffer.getChannelData(0);
+      const step = Math.ceil(data.length / w);
+      ctx.strokeStyle = '#7fd69a';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      for (let x = 0; x < w; x++) {
+        let min = 1, max = -1;
+        for (let j = 0; j < step; j++) {
+          const datum = data[(x * step) + j] || 0;
+          if (datum < min) min = datum;
+          if (datum > max) max = datum;
+        }
+        ctx.moveTo(x, (1 + min) * h / 2);
+        ctx.lineTo(x, (1 + max) * h / 2);
+      }
+      ctx.stroke();
+    }
+
+    function drawScope() {
+      const analyser = state.analyser;
+      if (!analyser) return;
+      const canvas = els.scope;
+      const c = canvas.getContext('2d');
+      const w = canvas.width, h = canvas.height;
+      const data = new Uint8Array(analyser.frequencyBinCount);
+      analyser.getByteTimeDomainData(data);
+      c.fillStyle = 'rgba(3,3,3,.28)';
+      c.fillRect(0, 0, w, h);
+      c.strokeStyle = '#7fd69a';
+      c.lineWidth = 3;
+      c.beginPath();
+      for (let i = 0; i < data.length; i++) {
+        const x = i / (data.length - 1) * w;
+        const y = data[i] / 255 * h;
+        if (i === 0) c.moveTo(x, y); else c.lineTo(x, y);
+      }
+      c.stroke();
+
+      let sum = 0;
+      for (let i = 0; i < data.length; i += 8) {
+        const x = (data[i] - 128) / 128;
+        sum += x * x;
+      }
+      const rms = Math.sqrt(sum / (data.length / 8));
+      const angle = -38 + Math.min(1, rms * 3.2) * 76;
+      if (els.needleL) els.needleL.style.transform = `rotate(${angle + (Math.random() - .5) * 4}deg)`;
+      if (els.needleR) els.needleR.style.transform = `rotate(${angle + (Math.random() - .5) * 5}deg)`;
+    }
+
+    function processOffline(buffer, values, progressCb) {
+      return new Promise(resolve => {
+        const channels = Math.min(2, buffer.numberOfChannels);
+        const inputL = buffer.getChannelData(0);
+        const inputR = buffer.numberOfChannels > 1 ? buffer.getChannelData(1) : inputL;
+        const sampleRate = buffer.sampleRate;
+        const speed = values.speed / 100;
+        const absSpeed = Math.max(0.005, Math.abs(speed));
+        const direction = speed < 0 ? -1 : 1;
+        const outLength = Math.max(1, Math.round(buffer.length / absSpeed));
+        const out = new AudioBuffer({ numberOfChannels: 2, length: outLength, sampleRate });
+        const outL = out.getChannelData(0);
+        const outR = out.getChannelData(1);
+
+        let pos = direction > 0 ? 0 : buffer.length - 1;
+        let slipActive = 0;
+        let slipCooldown = 0;
+        let scratchActive = 0;
+        let mem = [[0,0,0,0],[0,0,0,0]];
+
+        const warpDepth = values.warp / 100 * 0.09;
+        const motorDepth = values.motor / 100 * 0.045;
+        const noiseGain = Math.pow(values.noise / 100, 1.65) * 0.11;
+        const crackleAmount = values.crackle / 100;
+        const scratchAmount = values.scratch / 100;
+        const slipAmount = values.slip / 100;
+        const fragmentSamples = Math.round((0.07 + slipAmount * 0.42 + Math.random() * 0.28) * sampleRate);
+        const speaker = values.speaker / 100;
+        const wear = values.wear / 100;
+        const output = values.output / 100;
+        const input = values.input / 100;
+        const speakerLowpass = 1 - (speaker * 0.38 + wear * 0.52);
+        const mono = Math.max(speaker * 0.78, wear * 0.35);
+
+        function localSpeaker(x, channel) {
+          const age = speaker;
+
+          // EQ-only speaker age. Higher values become clearly old radio / gramophone / telephone:
+          // lows are cut, highs are cut, mids and nasal presence are pushed forward.
+          const lowpassCoeff = 0.34 - age * 0.27 - wear * 0.05;
+          const highpassCoeff = 0.012 + age * 0.105;
+          const bodyCoeff = 0.035 + age * 0.055;
+          const presenceCoeff = 0.12 + age * 0.05;
+
+          const lp = mem[channel][0] + (x - mem[channel][0]) * Math.max(0.012, lowpassCoeff);
+          mem[channel][0] = lp;
+
+          const bass = mem[channel][1] + (x - mem[channel][1]) * highpassCoeff;
+          mem[channel][1] = bass;
+
+          const band = lp - bass * (0.42 + age * 0.92);
+
+          const body = mem[channel][2] + (band - mem[channel][2]) * bodyCoeff;
+          mem[channel][2] = body;
+
+          const presenceBase = band - body * (0.58 + age * 0.25);
+          const presence = mem[channel][3] + (presenceBase - mem[channel][3]) * presenceCoeff;
+          mem[channel][3] = presence;
+
+          const radioTone = (
+            band * (1.15 + age * 1.75) +
+            presence * age * 3.1
+          ) * (0.78 + age * 0.1) * (1 - wear * 0.1);
+
+          return x * (1 - age) + radioTone * age;
+        }
+
+        const chunk = Math.max(4096, Math.floor(sampleRate / 4));
+        let i = 0;
+
+        function work() {
+          const end = Math.min(outLength, i + chunk);
+          for (; i < end; i++) {
+            const sec = pos / sampleRate;
+            const warp = Math.sin(sec * Math.PI * 2 * 0.55) * warpDepth;
+            const warp2 = Math.sin(sec * Math.PI * 2 * 0.19 + 1.7) * warpDepth * 0.45;
+            const motor = (Math.random() - 0.5) * motorDepth + Math.sin(sec * Math.PI * 2 * 8.3) * motorDepth * 0.25;
+            let rate = direction * absSpeed * Math.max(0.005, 1 + warp + warp2 + motor);
+
+            if (slipCooldown > 0) slipCooldown--;
+            if (slipActive > 0) {
+              slipActive--;
+              rate *= 0.72 + Math.random() * 0.16;
+            } else if (slipAmount > 0 && slipCooldown <= 0 && Math.random() < slipAmount * 0.00072) {
+              pos -= fragmentSamples * (0.65 + Math.random() * 0.9) * direction;
+              slipActive = Math.floor(1200 + Math.random() * 5200);
+              slipCooldown = Math.floor(9000 - slipAmount * 6500);
+            }
+
+            if (scratchActive > 0) scratchActive--;
+            else if (scratchAmount > 0 && Math.random() < scratchAmount * 0.00038) {
+              scratchActive = Math.floor(250 + Math.random() * 1400);
+            }
+
+            let l = readInterpolated(inputL, pos, buffer.length) * input;
+            let r = readInterpolated(inputR, pos, buffer.length) * input;
+            const surface = (Math.random() * 2 - 1) * noiseGain;
+            l += surface;
+            r += surface * (0.8 + Math.random() * 0.4);
+
+            if (crackleAmount > 0 && Math.random() < crackleAmount * crackleAmount * 0.006) {
+              const click = (Math.random() * 2 - 1) * (0.16 + crackleAmount * 0.6);
+              l += click;
+              r += click * (0.6 + Math.random() * 0.8);
+            }
+
+            if (scratchActive > 0) {
+              const scratch = (Math.random() * 2 - 1) * scratchAmount * 0.85;
+              const scratchTone = Math.sin(i * 0.62) * scratchAmount * 0.22;
+              l += scratch + scratchTone;
+              r += scratch * 0.9 - scratchTone;
+            }
+
+            const mid = (l + r) * 0.5;
+            l = l * (1 - mono) + mid * mono;
+            r = r * (1 - mono) + mid * mono;
+            l = localSpeaker(l, 0);
+            r = localSpeaker(r, 1);
+            l = Math.tanh(l * (1 + wear * 0.45)) * output;
+            r = Math.tanh(r * (1 + wear * 0.45)) * output;
+
+            outL[i] = clamp(l, -1, 1);
+            outR[i] = clamp(r, -1, 1);
+
+            pos += rate;
+            if (pos < 0 || pos >= buffer.length) {
+              if (state.loop) {
+                while (pos < 0) pos += buffer.length;
+                while (pos >= buffer.length) pos -= buffer.length;
+              } else {
+                pos = clamp(pos, 0, buffer.length - 1);
+              }
+            }
+          }
+          progressCb?.(i / outLength);
+          if (i < outLength) setTimeout(work, 0);
+          else resolve(out);
+        }
+        work();
+      });
+    }
+
+    function audioBufferToWav(buffer) {
+      const numChannels = buffer.numberOfChannels;
+      const sampleRate = buffer.sampleRate;
+      const length = buffer.length * numChannels * 2 + 44;
+      const arrayBuffer = new ArrayBuffer(length);
+      const view = new DataView(arrayBuffer);
+      const channels = [];
+      let offset = 0;
+      let pos = 0;
+
+      setUint32(0x46464952);
+      setUint32(length - 8);
+      setUint32(0x45564157);
+      setUint32(0x20746d66);
+      setUint32(16);
+      setUint16(1);
+      setUint16(numChannels);
+      setUint32(sampleRate);
+      setUint32(sampleRate * 2 * numChannels);
+      setUint16(numChannels * 2);
+      setUint16(16);
+      setUint32(0x61746164);
+      setUint32(length - pos - 4);
+
+      for (let i = 0; i < numChannels; i++) channels.push(buffer.getChannelData(i));
+
+      while (pos < length) {
+        for (let i = 0; i < numChannels; i++) {
+          const sample = Math.max(-1, Math.min(1, channels[i][offset] || 0));
+          view.setInt16(pos, sample < 0 ? sample * 0x8000 : sample * 0x7FFF, true);
+          pos += 2;
+        }
+        offset++;
+      }
+
+      return new Blob([arrayBuffer], { type: 'audio/wav' });
+
+      function setUint16(data) {
+        view.setUint16(pos, data, true);
+        pos += 2;
+      }
+
+      function setUint32(data) {
+        view.setUint32(pos, data, true);
+        pos += 4;
+      }
+    }
+
+    async function renderWav() {
+      if (!state.buffer) return;
+      const values = getCurrentValues();
+      els.render.disabled = true;
+      els.status.textContent = 'Rendering vinyl damage... 0%';
+      els.downloadArea.innerHTML = '';
+      try {
+        const rendered = await processOffline(state.buffer, values, p => {
+          els.status.textContent = `Rendering vinyl damage... ${Math.round(p * 100)}%`;
+        });
+        const blob = audioBufferToWav(rendered);
+        const url = URL.createObjectURL(blob);
+        const base = (state.fileName || 'audio').replace(/\.[^/.]+$/, '');
+        els.downloadArea.innerHTML = `<a download="${base}_attaq_vinyl_wrecker.wav" href="${url}">Download rendered WAV</a>`;
+        els.status.textContent = 'Render complete.';
+      } catch (err) {
+        console.error(err);
+        els.status.textContent = 'Render failed. Try a shorter file or lower browser load.';
+      } finally {
+        els.render.disabled = false;
+      }
+    }
+
+    function getCurrentValues() {
+      const values = { ...state.values };
+      PARAMS.forEach(p => {
+        const el = document.getElementById(p.id);
+        if (el) values[p.id] = Number(el.value);
+      });
+      return values;
+    }
+
+    function startLiveRecording() {
+      if (!state.buffer) return;
+      if (!state.playing) play();
+      state.recordChunks = [];
+      state.recording = true;
+      state.recordSampleRate = state.audioCtx?.sampleRate || 44100;
+      state.recordChannels = 2;
+      els.liveRecordPanel.classList.add('recording');
+      els.recordLive.disabled = true;
+      els.stopRecord.disabled = false;
+      els.liveRecordDownload.innerHTML = '';
+      els.liveRecordStatus.textContent = 'Recording live preview...';
+    }
+
+    function pushRecordSample(l, r) {
+      const last = state.recordChunks[state.recordChunks.length - 1];
+      if (!last || last.left.length >= 4096) {
+        state.recordChunks.push({ left: [], right: [] });
+      }
+      const chunk = state.recordChunks[state.recordChunks.length - 1];
+      chunk.left.push(l);
+      chunk.right.push(r);
+    }
+
+    function stopLiveRecording(auto = false) {
+      if (!state.recording) return;
+      state.recording = false;
+      els.liveRecordPanel.classList.remove('recording');
+      els.recordLive.disabled = false;
+      els.stopRecord.disabled = true;
+
+      const total = state.recordChunks.reduce((sum, c) => sum + c.left.length, 0);
+      if (total <= 0) {
+        els.liveRecordStatus.textContent = 'No live audio was recorded.';
+        return;
+      }
+
+      const buffer = new AudioBuffer({ numberOfChannels: 2, length: total, sampleRate: state.recordSampleRate });
+      const l = buffer.getChannelData(0);
+      const r = buffer.getChannelData(1);
+      let pos = 0;
+      state.recordChunks.forEach(chunk => {
+        for (let i = 0; i < chunk.left.length; i++) {
+          l[pos] = chunk.left[i];
+          r[pos] = chunk.right[i];
+          pos++;
+        }
+      });
+
+      const blob = audioBufferToWav(buffer);
+      const url = URL.createObjectURL(blob);
+      const base = (state.fileName || 'live').replace(/\.[^/.]+$/, '');
+      els.liveRecordDownload.innerHTML = `<a download="${base}_attaq_vinyl_live.wav" href="${url}">Download live WAV</a>`;
+      els.liveRecordStatus.textContent = auto ? 'Recording stopped at the end of playback.' : 'Live recording ready.';
+    }
+
+    function clamp(x, a, b) {
+      return Math.min(b, Math.max(a, x));
+    }
+
+    els.file.addEventListener('change', e => {
+      const file = e.target.files?.[0];
+      if (file) loadFile(file);
+    });
+
+    ['dragenter', 'dragover'].forEach(name => {
+      els.dropzone.addEventListener(name, e => {
+        e.preventDefault();
+        els.dropzone.classList.add('drag');
+      });
+    });
+
+    ['dragleave', 'drop'].forEach(name => {
+      els.dropzone.addEventListener(name, e => {
+        e.preventDefault();
+        els.dropzone.classList.remove('drag');
+      });
+    });
+
+    els.dropzone.addEventListener('drop', e => {
+      const file = e.dataTransfer.files?.[0];
+      if (file) loadFile(file);
+    });
+
+    els.play.addEventListener('click', play);
+    els.stop.addEventListener('click', () => stop());
+    els.loop.addEventListener('click', () => {
+      state.loop = !state.loop;
+      els.loop.textContent = `Loop: ${state.loop ? 'On' : 'Off'}`;
+      els.loop.classList.toggle('active', state.loop);
+    });
+    els.render.addEventListener('click', renderWav);
+    els.recordLive.addEventListener('click', startLiveRecording);
+    els.stopRecord.addEventListener('click', () => stopLiveRecording(false));
+
+    document.querySelectorAll('.preset').forEach(btn => {
+      btn.addEventListener('click', () => setPreset(btn.dataset.preset));
+    });
+
+    buildControls();
+  </script>
+</body>
+</html>

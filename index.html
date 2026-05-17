@@ -472,6 +472,114 @@
     .meter .label { color: var(--muted); font-size: 12px; margin-bottom: 6px; }
     .meter .value { font-size: 20px; font-weight: 800; letter-spacing: -.04em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
+    .live-record-panel,
+    .created-track {
+      display: grid;
+      gap: 10px;
+      padding: 12px;
+    }
+
+    .created-track[hidden] {
+      display: none;
+    }
+
+    .created-track-title {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .created-track audio {
+      display: none;
+    }
+
+    .custom-player {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 10px;
+      align-items: center;
+      border: 1px solid rgba(170,255,200,.14);
+      background:
+        linear-gradient(180deg, rgba(127,214,154,.075), rgba(127,214,154,.018) 18%, rgba(0,0,0,.24) 100%),
+        linear-gradient(135deg, #07110c 0%, #12231a 42%, #050806 100%);
+      border-radius: 14px;
+      padding: 10px;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.08),
+        inset 0 -1px 0 rgba(0,0,0,.72),
+        inset 0 0 26px rgba(127,214,154,.025);
+    }
+
+    .custom-play {
+      min-width: 82px;
+      padding: 9px 12px;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: #07110c;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.04) 38%, rgba(0,0,0,.10)),
+        linear-gradient(135deg, #b9efc8 0%, #7fd69a 46%, #4f9f69 100%);
+    }
+
+    .custom-seek {
+      margin: 0;
+    }
+
+    .custom-time {
+      min-width: 92px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 4px;
+      color: var(--muted);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .created-track-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .created-track-actions a,
+    .created-track-actions button {
+      display: inline-block;
+      min-width: 170px;
+      text-align: center;
+      color: #07110c;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.04) 38%, rgba(0,0,0,.10)),
+        linear-gradient(135deg, #b9efc8 0%, #7fd69a 46%, #4f9f69 100%);
+      border: 1px solid rgba(186,240,199,.42);
+      border-radius: 14px;
+      padding: 10px 14px;
+      font-size: 12px;
+      font-weight: 900;
+      text-decoration: none;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.18),
+        0 6px 14px rgba(0,0,0,.28);
+    }
+
+    .created-track-actions button {
+      min-width: 120px;
+      color: #fff4ee;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.012) 35%, rgba(0,0,0,.32)),
+        linear-gradient(135deg, #3b1111 0%, #742020 45%, #250909 100%);
+      border-color: rgba(143,59,51,.55);
+    }
+
+    .created-track-actions a:hover,
+    .created-track-actions button:hover {
+      filter: brightness(1.08);
+    }
+
     .live-record-panel {
       display: grid;
       gap: 10px;
@@ -723,6 +831,20 @@
           <div class="status" id="status">No file loaded.</div>
           <div class="status" id="downloadArea"></div>
 
+          <div class="created-track" id="createdTrack" hidden>
+            <div class="created-track-title">Created Track</div>
+            <audio id="createdAudio"></audio>
+            <div class="custom-player" id="createdPlayer">
+              <button id="createdPlay" class="custom-play" type="button">Play</button>
+              <input id="createdSeek" class="custom-seek" type="range" min="0" max="1000" value="0" />
+              <div class="custom-time"><span id="createdCurrent">0:00</span><span>/</span><span id="createdTotal">0:00</span></div>
+            </div>
+            <div class="created-track-actions">
+              <a id="createdDownload" href="#" download>Download WAV</a>
+              <button id="deleteCreated" type="button">Delete</button>
+            </div>
+          </div>
+
           <div class="visual-zone">
             <div class="scope-wrap">
               <canvas id="scope" width="1200" height="300"></canvas>
@@ -788,10 +910,11 @@
     </main>
 
     <div class="footer">
-      <div>By Artemy Zen · <a href="https://t.me/archichtotodelajet" target="_blank" rel="noopener">Telegram</a> · v 0.1.1</div>
+      <div>By Artemy Zen · <a href="https://t.me/archichtotodelajet" target="_blank" rel="noopener">Telegram</a> · v 0.1.2</div>
       <div class="beta-note">Beta version. Render may not perfectly match preview yet. Development is in progress.</div>
       <div class="devlog">
         <div class="devlog-title">Devlog</div>
+        <div class="devlog-entry"><strong>v 0.1.2</strong> – Added Created Track player with seek bar, time display, download and delete buttons. Created Track playback is connected to the oscilloscope and output meters.</div>
         <div class="devlog-entry"><strong>v 0.1.1</strong> – First public beta version.</div>
       </div>
     </div>
@@ -833,6 +956,9 @@
       recordChunks: [],
       recordSampleRate: 44100,
       recordChannels: 2,
+      createdScopeRaf: null,
+      createdAudioSource: null,
+      createdAnalyser: null,
       values: Object.fromEntries(PARAMS.map(p => [p.id, p.value]))
     };
 
@@ -850,6 +976,15 @@
       liveRecordDownload: document.getElementById('liveRecordDownload'),
       status: document.getElementById('status'),
       downloadArea: document.getElementById('downloadArea'),
+      createdTrack: document.getElementById('createdTrack'),
+      createdAudio: document.getElementById('createdAudio'),
+      createdDownload: document.getElementById('createdDownload'),
+      deleteCreated: document.getElementById('deleteCreated'),
+      createdPlayer: document.getElementById('createdPlayer'),
+      createdPlay: document.getElementById('createdPlay'),
+      createdSeek: document.getElementById('createdSeek'),
+      createdCurrent: document.getElementById('createdCurrent'),
+      createdTotal: document.getElementById('createdTotal'),
       controls: document.getElementById('controls'),
       scope: document.getElementById('scope'),
       recorder: document.getElementById('recorder'),
@@ -919,6 +1054,7 @@
       try {
         stop();
         els.downloadArea.innerHTML = '';
+        hideCreatedTrack();
         els.liveRecordDownload.innerHTML = '';
         const ctx = ensureContext();
         els.status.textContent = 'Decoding audio...';
@@ -951,6 +1087,7 @@
 
     async function play() {
       if (!state.buffer) return;
+      if (els.createdAudio?.src && !els.createdAudio.paused) els.createdAudio.pause();
       const ctx = ensureContext();
       await ctx.resume();
       stop(false);
@@ -1243,6 +1380,11 @@
     function drawScope() {
       const analyser = state.analyser;
       if (!analyser) return;
+      drawAnalyserScope(analyser);
+    }
+
+    function drawAnalyserScope(analyser) {
+      if (!analyser) return;
       const canvas = els.scope;
       const c = canvas.getContext('2d');
       const w = canvas.width, h = canvas.height;
@@ -1269,6 +1411,92 @@
       const angle = -38 + Math.min(1, rms * 3.2) * 76;
       if (els.needleL) els.needleL.style.transform = `rotate(${angle + (Math.random() - .5) * 4}deg)`;
       if (els.needleR) els.needleR.style.transform = `rotate(${angle + (Math.random() - .5) * 5}deg)`;
+    }
+
+    function formatTime(seconds) {
+      if (!Number.isFinite(seconds) || seconds < 0) return '0:00';
+      const m = Math.floor(seconds / 60);
+      const s = Math.floor(seconds % 60);
+      return `${m}:${String(s).padStart(2, '0')}`;
+    }
+
+    function updateCreatedPlayerUI() {
+      const audio = els.createdAudio;
+      if (!audio) return;
+      const duration = audio.duration || 0;
+      const current = audio.currentTime || 0;
+      els.createdCurrent.textContent = formatTime(current);
+      els.createdTotal.textContent = formatTime(duration);
+      if (duration > 0 && !els.createdSeek.matches(':active')) {
+        els.createdSeek.value = Math.round((current / duration) * 1000);
+      }
+      els.createdPlay.textContent = audio.paused ? 'Play' : 'Pause';
+    }
+
+    function stopCreatedScope() {
+      if (state.createdScopeRaf) cancelAnimationFrame(state.createdScopeRaf);
+      state.createdScopeRaf = null;
+      if (!state.playing) {
+        if (els.needleL) els.needleL.style.transform = 'rotate(-38deg)';
+        if (els.needleR) els.needleR.style.transform = 'rotate(-38deg)';
+      }
+    }
+
+    async function startCreatedScope() {
+      if (!els.createdAudio?.src) return;
+      const ctx = ensureContext();
+      await ctx.resume();
+      if (state.playing) stop(false);
+
+      if (!state.createdAudioSource) {
+        state.createdAudioSource = ctx.createMediaElementSource(els.createdAudio);
+        state.createdAnalyser = ctx.createAnalyser();
+        state.createdAnalyser.fftSize = 2048;
+        state.createdAudioSource.connect(state.createdAnalyser);
+        state.createdAnalyser.connect(ctx.destination);
+      }
+
+      const tick = () => {
+        if (els.createdAudio.paused || els.createdAudio.ended) {
+          stopCreatedScope();
+          return;
+        }
+        drawAnalyserScope(state.createdAnalyser);
+        state.createdScopeRaf = requestAnimationFrame(tick);
+      };
+      tick();
+    }
+
+    function hideCreatedTrack(message = '') {
+      stopCreatedScope();
+      if (!els.createdTrack) return;
+      if (els.createdAudio?.src) URL.revokeObjectURL(els.createdAudio.src);
+      els.createdTrack.hidden = true;
+      els.createdAudio.pause();
+      els.createdAudio.removeAttribute('src');
+      els.createdAudio.load();
+      els.createdSeek.value = 0;
+      els.createdCurrent.textContent = '0:00';
+      els.createdTotal.textContent = '0:00';
+      els.createdPlay.textContent = 'Play';
+      els.createdDownload.removeAttribute('href');
+      els.createdDownload.removeAttribute('download');
+      if (message) els.downloadArea.textContent = message;
+    }
+
+    function showCreatedTrack(blob, downloadName, label = 'Created track is ready.') {
+      if (els.createdAudio?.src) URL.revokeObjectURL(els.createdAudio.src);
+      const url = URL.createObjectURL(blob);
+      els.createdAudio.src = url;
+      els.createdDownload.href = url;
+      els.createdDownload.download = downloadName;
+      els.createdTrack.hidden = false;
+      els.downloadArea.textContent = label;
+      els.createdSeek.value = 0;
+      els.createdCurrent.textContent = '0:00';
+      els.createdTotal.textContent = '0:00';
+      els.createdPlay.textContent = 'Play';
+      els.createdAudio.addEventListener('loadedmetadata', updateCreatedPlayerUI, { once: true });
     }
 
     function processOffline(buffer, values, progressCb) {
@@ -1472,9 +1700,8 @@
           els.status.textContent = `Rendering vinyl damage... ${Math.round(p * 100)}%`;
         });
         const blob = audioBufferToWav(rendered);
-        const url = URL.createObjectURL(blob);
         const base = (state.fileName || 'audio').replace(/\.[^/.]+$/, '');
-        els.downloadArea.innerHTML = `<a download="${base}_attaq_vinyl_wrecker.wav" href="${url}">Download rendered WAV</a>`;
+        showCreatedTrack(blob, `${base}_attaq_vinyl_wrecker.wav`, 'Created track is ready.');
         els.status.textContent = 'Render complete.';
       } catch (err) {
         console.error(err);
@@ -1587,6 +1814,31 @@
     els.render.addEventListener('click', renderWav);
     els.recordLive.addEventListener('click', startLiveRecording);
     els.stopRecord.addEventListener('click', () => stopLiveRecording(false));
+    els.deleteCreated.addEventListener('click', () => hideCreatedTrack('Deleted.'));
+    els.createdAudio.addEventListener('play', () => {
+      updateCreatedPlayerUI();
+      startCreatedScope();
+    });
+    els.createdAudio.addEventListener('pause', () => {
+      updateCreatedPlayerUI();
+      stopCreatedScope();
+    });
+    els.createdAudio.addEventListener('ended', () => {
+      updateCreatedPlayerUI();
+      stopCreatedScope();
+    });
+    els.createdAudio.addEventListener('timeupdate', updateCreatedPlayerUI);
+    els.createdAudio.addEventListener('loadedmetadata', updateCreatedPlayerUI);
+    els.createdPlay.addEventListener('click', async () => {
+      if (!els.createdAudio.src) return;
+      if (els.createdAudio.paused) await els.createdAudio.play();
+      else els.createdAudio.pause();
+    });
+    els.createdSeek.addEventListener('input', () => {
+      const duration = els.createdAudio.duration || 0;
+      if (duration > 0) els.createdAudio.currentTime = (Number(els.createdSeek.value) / 1000) * duration;
+      updateCreatedPlayerUI();
+    });
 
     document.querySelectorAll('.preset').forEach(btn => {
       btn.addEventListener('click', () => setPreset(btn.dataset.preset));

@@ -874,6 +874,156 @@
     .devlog-entry { margin: 2px 0; }
     .devlog-entry strong { color: var(--text); font-weight: 800; }
 
+    /* v 0.1.7 — darker dotted sharp UI pass */
+    :root {
+      --bg: #020302;
+      --panel: #070907;
+      --panel2: #0d100d;
+      --wood: #08110c;
+      --wood2: #030604;
+      --bakelite: #030503;
+      --text: #e8f3ea;
+      --muted: #7f9885;
+      --accent: #9eeab7;
+      --accent2: #c4f6d0;
+      --danger: #8d302d;
+      --line: rgba(170,255,200,.11);
+      --shadow: 0 22px 70px rgba(0,0,0,.82);
+    }
+
+    body {
+      background:
+        radial-gradient(circle, rgba(170,255,200,.075) 0 1px, transparent 1.35px) 0 0 / 14px 14px,
+        radial-gradient(circle, rgba(255,255,255,.022) 0 1px, transparent 1.35px) 7px 7px / 14px 14px,
+        radial-gradient(circle at 18% 8%, rgba(127,214,154,.055), transparent 24%),
+        radial-gradient(circle at 78% 0%, rgba(127,214,154,.035), transparent 28%),
+        linear-gradient(180deg, #010201 0%, #030604 42%, #010201 100%) !important;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .17;
+      background:
+        radial-gradient(circle, rgba(255,255,255,.05) 0 1px, transparent 1.25px) 0 0 / 22px 22px,
+        radial-gradient(circle, rgba(170,255,200,.045) 0 1px, transparent 1.25px) 11px 11px / 22px 22px,
+        linear-gradient(180deg, rgba(255,255,255,.018), transparent 20%, transparent 82%, rgba(0,0,0,.24));
+      mix-blend-mode: screen;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .10;
+      background:
+        repeating-linear-gradient(0deg, transparent 0 3px, rgba(255,255,255,.025) 4px, transparent 5px),
+        radial-gradient(circle at 50% 50%, transparent 0 52%, rgba(0,0,0,.42) 100%);
+      mix-blend-mode: multiply;
+    }
+
+    header,
+    .card,
+    .meter,
+    .knob,
+    .dropzone,
+    .scope-wrap,
+    .mini-widget,
+    .live-record-panel,
+    .created-track,
+    .custom-player,
+    .created-track-actions a,
+    .created-track-actions button,
+    .tools-link,
+    .presets,
+    .user-presets,
+    .user-preset-input,
+    .user-preset-row button,
+    .devlog,
+    button,
+    button.secondary,
+    button.danger,
+    .preset,
+    canvas,
+    .scope-wrap canvas,
+    .mini-vu,
+    input[type="range"],
+    input[type="range"]::-webkit-slider-runnable-track,
+    input[type="range"]::-webkit-slider-thumb,
+    input[type="range"]::-moz-range-track,
+    input[type="range"]::-moz-range-thumb {
+      border-radius: 0 !important;
+    }
+
+    header,
+    .card,
+    .meter,
+    .knob,
+    .dropzone,
+    .scope-wrap,
+    .mini-widget,
+    .live-record-panel,
+    .created-track,
+    .custom-player,
+    .tools-link,
+    .presets,
+    .user-presets,
+    .devlog {
+      background:
+        linear-gradient(180deg, rgba(210,255,220,.038) 0%, rgba(210,255,220,.008) 12%, rgba(0,0,0,.34) 100%),
+        radial-gradient(circle at 10% 8%, rgba(127,214,154,.045), transparent 28%),
+        linear-gradient(135deg, #050805 0%, #0b120d 36%, #030503 100%) !important;
+      border: 1px solid rgba(170,255,200,.11) !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.055),
+        inset 0 -1px 0 rgba(0,0,0,.86),
+        inset 0 0 24px rgba(127,214,154,.018),
+        0 18px 54px rgba(0,0,0,.70) !important;
+    }
+
+    /* Final sharp-corner override */
+    header,
+    .card,
+    .meter,
+    .knob,
+    .dropzone,
+    .scope-wrap,
+    .scope-wrap canvas,
+    .mini-widget,
+    .turntable,
+    .mini-vu,
+    .live-record-panel,
+    .created-track,
+    .custom-player,
+    .created-track-actions a,
+    .created-track-actions button,
+    .tools-link,
+    .presets,
+    .preset,
+    .user-presets,
+    .user-preset-input,
+    .user-preset-row button,
+    .devlog,
+    button,
+    button.secondary,
+    button.danger,
+    canvas,
+    input[type="range"],
+    input[type="range"]::-webkit-slider-runnable-track,
+    input[type="range"]::-webkit-slider-thumb,
+    input[type="range"]::-moz-range-track,
+    input[type="range"]::-moz-range-thumb {
+      border-radius: 0 !important;
+    }
+
+    .vinyl-disc,
+    .vinyl-disc::after {
+      border-radius: 50% !important;
+    }
+
     @media (max-width: 900px) {
       .main { grid-template-columns: 1fr; }
       header { align-items: flex-start; flex-direction: column; }
@@ -889,6 +1039,27 @@
       .controls { grid-template-columns: 1fr; }
       .meters { grid-template-columns: 1fr 1fr; }
       .scope-wrap canvas { height: 56px; }
+    }
+
+    /* HARD SQUARE CORNERS OVERRIDE — final layer */
+    html,
+    body,
+    body *,
+    body *::before,
+    body *::after {
+      border-radius: 0 !important;
+    }
+
+    .vinyl-disc,
+    .vinyl-disc::after {
+      border-radius: 50% !important;
+    }
+
+    input[type="range"]::-webkit-slider-runnable-track,
+    input[type="range"]::-webkit-slider-thumb,
+    input[type="range"]::-moz-range-track,
+    input[type="range"]::-moz-range-thumb {
+      border-radius: 0 !important;
     }
   </style>
 </head>
@@ -1019,8 +1190,8 @@
       <div class="beta-note">Beta version. Render may not perfectly match preview yet. Development is in progress.</div>
       <div class="devlog">
         <div class="devlog-title">Devlog</div>
-        <div class="devlog-entry"><strong>v 0.1.3</strong> – Added local user presets with save, load and delete actions.</div>
-        <div class="devlog-entry"><strong>v 0.1.2</strong> – Added Created Track player with seek bar, time display, download and delete buttons. Created Track playback is connected to the oscilloscope and output meters.</div>
+        <div class="devlog-entry"><strong>v 0.1.3</strong> – Added local user presets with save, load and delete actions. Visual UI uses sharp corners and a darker dotted background.</div>
+        <div class="devlog-entry"><strong>v 0.1.2</strong> – Added Created Track player with seek bar, time display, download and delete buttons.</div>
         <div class="devlog-entry"><strong>v 0.1.1</strong> – First public beta version.</div>
       </div>
     </div>
@@ -1030,13 +1201,13 @@
     const PARAMS = [
       { id: 'speed', name: 'Record Speed', min: -200, max: 200, value: 100, suffix: '%', hint: 'Playback speed. Negative values play the record backwards.' },
       { id: 'input', name: 'Input Signal', min: 0, max: 200, value: 100, suffix: '%', hint: 'Gain of the loaded audio before vinyl noise, scratches and filtering.' },
-      { id: 'warp', name: 'Warp', min: 0, max: 100, value: 5, hint: 'Slow pitch wobble from a slightly bent record.' },
-      { id: 'motor', name: 'Motor Instability', min: 0, max: 100, value: 14, hint: 'Nervous mechanical speed jitter from a tired turntable.' },
+      { id: 'warp', name: 'Warp', min: 0, max: 100, value: 1, hint: 'Slow pitch wobble from a slightly bent record.' },
+      { id: 'motor', name: 'Motor Instability', min: 0, max: 100, value: 0, hint: 'Nervous mechanical speed jitter from a tired turntable.' },
       { id: 'noise', name: 'Vinyl Noise', min: 0, max: 100, value: 18, hint: 'Constant dusty surface noise and low vinyl bed.' },
-      { id: 'crackle', name: 'Dust & Crackle', min: 0, max: 100, value: 33, hint: 'Random clicks, dust pops and tiny static spikes.' },
+      { id: 'crackle', name: 'Dust & Crackle', min: 0, max: 100, value: 12, hint: 'Random clicks, dust pops and tiny static spikes.' },
       { id: 'scratch', name: 'Scratch Damage', min: 0, max: 100, value: 0, hint: 'Short harsh needle scratches across damaged grooves.' },
       { id: 'slip', name: 'Needle Slip', min: 0, max: 10, value: 0, hint: 'Subtle needle jumps. 10 is still controlled, not total chaos.' },
-      { id: 'speaker', name: 'Speaker Age', min: 0, max: 100, value: 35, hint: 'EQ-only aging: turns the sound into old radio / gramophone / telephone.' },
+      { id: 'speaker', name: 'Speaker Age', min: 0, max: 100, value: 69, hint: 'EQ-only aging: turns the sound into old radio / gramophone / telephone.' },
       { id: 'wear', name: 'Groove Wear', min: 0, max: 100, value: 0, hint: 'Worn groove detail loss, muffling and unstable contact.' },
       { id: 'output', name: 'Output Level', min: 0, max: 150, value: 100, suffix: '%', hint: 'Final output gain.' }
     ];
@@ -1045,8 +1216,12 @@
       audioCtx: null,
       buffer: null,
       processor: null,
+      source: null,
       gain: null,
       analyser: null,
+      nativeClean: false,
+      nativeStartTime: 0,
+      nativeStartOffset: 0,
       playing: false,
       loop: false,
       raf: null,
@@ -1132,6 +1307,7 @@
           state.values[p.id] = Number(slider.value);
           document.getElementById(`${p.id}Value`).textContent = formatParamValue(p, Number(slider.value));
           updateModeReadout();
+          maybeSwitchPlaybackEngine();
         });
       });
     }
@@ -1153,11 +1329,12 @@
         document.getElementById(`${id}Value`).textContent = formatParamValue(param, Number(val));
       });
       updateModeReadout();
+      maybeSwitchPlaybackEngine();
     }
 
     function setPreset(name) {
       const presets = {
-        dustyMemory: { speed: 100, input: 100, warp: 5, motor: 14, noise: 18, crackle: 33, scratch: 0,  slip: 0, speaker: 35, wear: 0,  output: 100 },
+        dustyMemory: { speed: 100, input: 100, warp: 1, motor: 0, noise: 18, crackle: 12, scratch: 0,  slip: 0, speaker: 69, wear: 0,  output: 100 },
         brokenDisk:  { speed: 100, input: 100, warp: 22, motor: 12, noise: 22, crackle: 28, scratch: 22, slip: 4, speaker: 67, wear: 32, output: 100 },
         reset:       { speed: 100, input: 100, warp: 0,  motor: 0,  noise: 0,  crackle: 0,  scratch: 0,  slip: 0, speaker: 0,  wear: 0,  output: 100 }
       };
@@ -1288,6 +1465,129 @@
       return str.length > n ? str.slice(0, n - 1) + '…' : str;
     }
 
+    function isCleanValues(values = getCurrentValues()) {
+      return Math.abs(values.speed - 100) < 0.0001 &&
+        Math.abs(values.input - 100) < 0.0001 &&
+        values.warp <= 0 &&
+        values.motor <= 0 &&
+        values.noise <= 0 &&
+        values.crackle <= 0 &&
+        values.scratch <= 0 &&
+        values.slip <= 0 &&
+        values.speaker <= 0 &&
+        values.wear <= 0 &&
+        Math.abs(values.output - 100) < 0.0001;
+    }
+
+    function getPlaybackOffsetSeconds() {
+      if (!state.buffer) return 0;
+      if (state.nativeClean && state.audioCtx) {
+        const elapsed = Math.max(0, state.audioCtx.currentTime - state.nativeStartTime);
+        return state.loop ? elapsed % state.buffer.duration : Math.min(state.buffer.duration - 0.001, elapsed);
+      }
+      return clamp(state.readPos / state.buffer.sampleRate, 0, Math.max(0, state.buffer.duration - 0.001));
+    }
+
+    function maybeSwitchPlaybackEngine() {
+      if (!state.playing || state.recording || !state.buffer) return;
+      const shouldBeNative = isCleanValues();
+      if (shouldBeNative === state.nativeClean) return;
+      restartPlaybackAt(getPlaybackOffsetSeconds());
+    }
+
+    function restartPlaybackAt(offsetSeconds = 0) {
+      if (!state.buffer) return;
+      const ctx = ensureContext();
+      const oldProcessor = state.processor;
+      const oldSource = state.source;
+      const oldGain = state.gain;
+      const oldAnalyser = state.analyser;
+      const now = ctx.currentTime;
+
+      try {
+        if (oldGain) {
+          oldGain.gain.cancelScheduledValues(now);
+          oldGain.gain.setValueAtTime(oldGain.gain.value, now);
+          oldGain.gain.linearRampToValueAtTime(0, now + 0.018);
+        }
+        if (oldSource) oldSource.stop(now + 0.022);
+      } catch(e) {
+        try { oldSource && oldSource.stop(); } catch(err) {}
+      }
+
+      setTimeout(() => {
+        try { oldSource && oldSource.disconnect(); } catch(e) {}
+        try { oldProcessor && oldProcessor.disconnect(); } catch(e) {}
+        try { oldGain && oldGain.disconnect(); } catch(e) {}
+        try { oldAnalyser && oldAnalyser.disconnect(); } catch(e) {}
+      }, 50);
+
+      state.processor = null;
+      state.source = null;
+      state.gain = null;
+      state.analyser = null;
+      state.nativeClean = false;
+      startPlaybackEngine(offsetSeconds);
+    }
+
+    function startPlaybackEngine(offsetSeconds = 0) {
+      const ctx = ensureContext();
+      const values = getCurrentValues();
+      const gain = ctx.createGain();
+      const analyser = ctx.createAnalyser();
+      analyser.fftSize = 2048;
+      gain.gain.value = 0;
+
+      const now = ctx.currentTime;
+      const startTime = now + 0.03;
+      gain.gain.setValueAtTime(0, now);
+      gain.gain.setValueAtTime(0, startTime);
+      gain.gain.linearRampToValueAtTime(1, startTime + 0.025);
+
+      const safeOffset = clamp(offsetSeconds, 0, Math.max(0, state.buffer.duration - 0.001));
+
+      if (isCleanValues(values) && !state.recording) {
+        const source = ctx.createBufferSource();
+        source.buffer = state.buffer;
+        source.loop = state.loop;
+        source.connect(gain);
+        gain.connect(analyser);
+        analyser.connect(ctx.destination);
+
+        state.source = source;
+        state.processor = null;
+        state.gain = gain;
+        state.analyser = analyser;
+        state.nativeClean = true;
+        state.nativeStartTime = startTime - safeOffset;
+        state.nativeStartOffset = safeOffset;
+        state.readPos = safeOffset * state.buffer.sampleRate;
+        speakerMemory = [[0, 0, 0, 0], [0, 0, 0, 0]];
+
+        source.onended = () => {
+          if (!state.loop && state.nativeClean) stop(false);
+        };
+        source.start(startTime, safeOffset);
+      } else {
+        const processor = ctx.createScriptProcessor(1024, 0, 2);
+        processor.onaudioprocess = processVinylBlock;
+        processor.connect(gain);
+        gain.connect(analyser);
+        analyser.connect(ctx.destination);
+
+        state.processor = processor;
+        state.source = null;
+        state.gain = gain;
+        state.analyser = analyser;
+        state.nativeClean = false;
+        state.readPos = safeOffset * state.buffer.sampleRate;
+        speakerMemory = [[0, 0, 0, 0], [0, 0, 0, 0]];
+
+        if (state.values.speed < 0 && state.readPos <= 0) state.readPos = state.buffer.length - 1;
+        if (state.values.speed >= 0 && state.readPos >= state.buffer.length - 1) state.readPos = 0;
+      }
+    }
+
     async function play() {
       if (!state.buffer) return;
       if (els.createdAudio?.src && !els.createdAudio.paused) els.createdAudio.pause();
@@ -1295,29 +1595,11 @@
       await ctx.resume();
       stop(false);
 
-      const processor = ctx.createScriptProcessor(1024, 0, 2);
-      const gain = ctx.createGain();
-      const analyser = ctx.createAnalyser();
-      analyser.fftSize = 2048;
-      gain.gain.value = 0;
-
-      processor.onaudioprocess = processVinylBlock;
-      processor.connect(gain);
-      gain.connect(analyser);
-      analyser.connect(ctx.destination);
-
-      const now = ctx.currentTime;
-      gain.gain.setValueAtTime(0, now);
-      gain.gain.linearRampToValueAtTime(1, now + 0.035);
-
-      state.processor = processor;
-      state.gain = gain;
-      state.analyser = analyser;
       state.playing = true;
       state.lastFrameTime = performance.now();
-
-      if (state.values.speed < 0 && state.readPos <= 0) state.readPos = state.buffer.length - 1;
-      if (state.values.speed >= 0 && state.readPos >= state.buffer.length - 1) state.readPos = 0;
+      state.slipActive = 0;
+      state.scratchActive = 0;
+      startPlaybackEngine(0);
 
       els.play.textContent = 'RESTART';
       els.play.classList.add('active');
@@ -1333,6 +1615,7 @@
 
       const ctx = state.audioCtx;
       const processor = state.processor;
+      const source = state.source;
       const gain = state.gain;
       const analyser = state.analyser;
 
@@ -1342,21 +1625,29 @@
           gain.gain.cancelScheduledValues(now);
           gain.gain.setValueAtTime(gain.gain.value, now);
           gain.gain.linearRampToValueAtTime(0, now + 0.018);
-        } catch(e) {}
+          if (source) source.stop(now + 0.022);
+        } catch(e) {
+          try { source && source.stop(); } catch(err) {}
+        }
         setTimeout(() => {
+          try { source && source.disconnect(); } catch(e) {}
           try { processor && processor.disconnect(); } catch(e) {}
           try { gain && gain.disconnect(); } catch(e) {}
           try { analyser && analyser.disconnect(); } catch(e) {}
         }, 40);
       } else {
+        try { source && source.stop(); } catch(e) {}
+        try { source && source.disconnect(); } catch(e) {}
         try { processor && processor.disconnect(); } catch(e) {}
         try { gain && gain.disconnect(); } catch(e) {}
         try { analyser && analyser.disconnect(); } catch(e) {}
       }
 
       state.processor = null;
+      state.source = null;
       state.gain = null;
       state.analyser = null;
+      state.nativeClean = false;
       state.playing = false;
       state.slipActive = 0;
       state.scratchActive = 0;
@@ -1400,6 +1691,17 @@
       const input = values.input / 100;
       const speakerLowpass = 1 - (speaker * 0.38 + wear * 0.52);
       const mono = Math.max(speaker * 0.78, wear * 0.35);
+      const cleanPass = Math.abs(values.speed - 100) < 0.0001 &&
+        Math.abs(values.input - 100) < 0.0001 &&
+        values.warp <= 0 &&
+        values.motor <= 0 &&
+        values.noise <= 0 &&
+        values.crackle <= 0 &&
+        values.scratch <= 0 &&
+        values.slip <= 0 &&
+        values.speaker <= 0 &&
+        values.wear <= 0 &&
+        Math.abs(values.output - 100) < 0.0001;
 
       for (let i = 0; i < leftOut.length; i++) {
         const globalSample = Math.floor(state.readPos + i);
@@ -1430,6 +1732,25 @@
         let l = readInterpolated(leftIn, state.readPos, length) * input;
         let r = readInterpolated(rightIn, state.readPos, length) * input;
 
+        if (cleanPass) {
+          leftOut[i] = clamp(l, -1, 1);
+          rightOut[i] = clamp(r, -1, 1);
+          if (state.recording) pushRecordSample(leftOut[i], rightOut[i]);
+          state.readPos += rate;
+          if (state.loop) {
+            while (state.readPos < 0) state.readPos += length;
+            while (state.readPos >= length) state.readPos -= length;
+          } else if (state.readPos < 0 || state.readPos >= length) {
+            state.readPos = clamp(state.readPos, 0, length - 1);
+            setTimeout(() => {
+              if (state.recording) stopLiveRecording(true);
+              else stop(false);
+            }, 0);
+            break;
+          }
+          continue;
+        }
+
         const surface = (Math.random() * 2 - 1) * noiseGain;
         l += surface;
         r += surface * (0.8 + Math.random() * 0.4);
@@ -1454,8 +1775,10 @@
         l = applySpeakerAndWear(l, speakerLowpass, speaker, wear, 0);
         r = applySpeakerAndWear(r, speakerLowpass, speaker, wear, 1);
 
-        l = Math.tanh(l * (1 + wear * 0.45));
-        r = Math.tanh(r * (1 + wear * 0.45));
+        if (wear > 0.0001) {
+          l = Math.tanh(l * (1 + wear * 0.45));
+          r = Math.tanh(r * (1 + wear * 0.45));
+        }
 
         l *= output;
         r *= output;
@@ -1531,6 +1854,10 @@
       state.lastFrameTime = now;
 
       const v = state.values;
+      if (state.nativeClean && state.audioCtx && state.buffer) {
+        const elapsed = Math.max(0, state.audioCtx.currentTime - state.nativeStartTime);
+        state.readPos = Math.min(state.buffer.length - 1, elapsed * state.buffer.sampleRate);
+      }
       const speed = v.speed / 100;
       const visualWarp = Math.sin(now * 0.0032) * (v.warp / 100) * 0.32;
       const visualMotor = (Math.random() - 0.5) * (v.motor / 100) * 0.42;
@@ -1735,6 +2062,25 @@
         const input = values.input / 100;
         const speakerLowpass = 1 - (speaker * 0.38 + wear * 0.52);
         const mono = Math.max(speaker * 0.78, wear * 0.35);
+        const cleanPass = Math.abs(values.speed - 100) < 0.0001 &&
+          Math.abs(values.input - 100) < 0.0001 &&
+          values.warp <= 0 &&
+          values.motor <= 0 &&
+          values.noise <= 0 &&
+          values.crackle <= 0 &&
+          values.scratch <= 0 &&
+          values.slip <= 0 &&
+          values.speaker <= 0 &&
+          values.wear <= 0 &&
+          Math.abs(values.output - 100) < 0.0001;
+
+        if (cleanPass) {
+          outL.set(inputL);
+          outR.set(inputR);
+          progressCb?.(1);
+          resolve(out);
+          return;
+        }
 
         function localSpeaker(x, channel) {
           const age = speaker;
@@ -1820,8 +2166,12 @@
             r = r * (1 - mono) + mid * mono;
             l = localSpeaker(l, 0);
             r = localSpeaker(r, 1);
-            l = Math.tanh(l * (1 + wear * 0.45)) * output;
-            r = Math.tanh(r * (1 + wear * 0.45)) * output;
+            if (wear > 0.0001) {
+              l = Math.tanh(l * (1 + wear * 0.45));
+              r = Math.tanh(r * (1 + wear * 0.45));
+            }
+            l *= output;
+            r *= output;
 
             outL[i] = clamp(l, -1, 1);
             outR[i] = clamp(r, -1, 1);

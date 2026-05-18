@@ -852,66 +852,219 @@
       line-height: 1.35;
     }
 
-    .support-follow {
-      margin: 8px auto 0;
+    .support-block {
+      margin: 8px auto 4px;
       max-width: 760px;
-      display: grid;
-      gap: 10px;
-      padding: 10px 12px;
-      border: 1px solid rgba(170,255,200,.11);
+      border: 1px solid rgba(170,255,200,.16);
       background:
         linear-gradient(180deg, rgba(210,255,220,.038) 0%, rgba(210,255,220,.008) 12%, rgba(0,0,0,.34) 100%),
+        radial-gradient(circle at 10% 8%, rgba(127,214,154,.045), transparent 28%),
         linear-gradient(135deg, #050805 0%, #0b120d 36%, #030503 100%);
+      padding: 12px;
+      display: grid;
+      gap: 10px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
       box-shadow:
         inset 0 1px 0 rgba(255,255,255,.055),
         inset 0 -1px 0 rgba(0,0,0,.86),
-        0 18px 54px rgba(0,0,0,.45);
+        inset 0 0 24px rgba(127,214,154,.018),
+        0 18px 54px rgba(0,0,0,.55);
     }
 
-    .support-follow-title {
+    .support-title {
       color: var(--muted);
       font-weight: 900;
       text-transform: uppercase;
       letter-spacing: .12em;
       font-size: 10px;
-      text-align: center;
     }
 
-    .support-follow-actions {
+    .support-buttons {
       display: grid;
-      grid-template-columns: 1fr 1fr;
       gap: 10px;
     }
 
-    .support-follow-actions a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 40px;
-      padding: 10px 14px;
-      color: #07110c;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.04) 38%, rgba(0,0,0,.10)),
-        linear-gradient(135deg, #b9efc8 0%, #7fd69a 46%, #4f9f69 100%);
-      border: 1px solid rgba(186,240,199,.42);
-      font-size: 12px;
-      font-weight: 900;
+    .support-button {
+      display: inline-block;
+      width: 100%;
+      padding: 11px 16px;
+      border: 1px solid rgba(255,255,255,.15);
+      color: #f0f0f0 !important;
       text-decoration: none;
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.18),
-        0 6px 14px rgba(0,0,0,.28);
-    }
-
-    .support-follow-actions a.itch {
-      color: #fff4ee;
+      font-weight: 900 !important;
       background:
-        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.012) 35%, rgba(0,0,0,.32)),
-        linear-gradient(135deg, #3b1111 0%, #742020 45%, #250909 100%);
-      border-color: rgba(143,59,51,.55);
+        linear-gradient(180deg, rgba(255,255,255,.085), rgba(255,255,255,.018) 35%, rgba(0,0,0,.3)),
+        linear-gradient(135deg, #111 0%, #1b1b1b 45%, #090909 100%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.08),
+        inset 0 -1px 0 rgba(0,0,0,.75),
+        0 6px 14px rgba(0,0,0,.32);
     }
 
-    .support-follow-actions a:hover {
+    .support-button:hover {
+      transform: translateY(-1px);
       filter: brightness(1.08);
+    }
+
+    .support-button.hub {
+      display: block;
+      position: relative;
+      overflow: hidden;
+      background:
+        repeating-linear-gradient(180deg, rgba(255,255,255,.035) 0 1px, transparent 1px 3px),
+        radial-gradient(circle at 18% 22%, rgba(130,230,255,.18), transparent 30%),
+        radial-gradient(circle at 82% 74%, rgba(95,170,255,.14), transparent 32%),
+        linear-gradient(135deg, #244d73 0%, #13385d 46%, #0a1524 100%) !important;
+      color: #eefaff !important;
+      border-color: rgba(190,235,255,.24) !important;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.14),
+        inset 0 -1px 0 rgba(0,0,0,.68),
+        0 6px 14px rgba(0,0,0,.32),
+        0 0 16px rgba(95,170,255,.10) !important;
+    }
+
+    .support-button.hub::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: .28;
+      background:
+        linear-gradient(120deg, transparent 0%, rgba(255,255,255,.08) 8%, transparent 16%),
+        repeating-linear-gradient(90deg, transparent 0 10px, rgba(255,255,255,.015) 10px 11px, transparent 11px 20px);
+      mix-blend-mode: screen;
+    }
+
+    .support-button.hub::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: .12;
+      background: radial-gradient(circle at center, rgba(255,255,255,.06), transparent 60%);
+    }
+
+    .hub-name {
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+      font-weight: 950;
+      letter-spacing: .055em;
+      text-transform: uppercase;
+      text-shadow:
+        -1px 0 rgba(255, 60, 120, .7),
+         1px 0 rgba(80, 220, 255, .7),
+         0 0 8px rgba(255,255,255,.10);
+    }
+
+    .hub-name::before,
+    .hub-name::after {
+      content: "ARTEMY ZEN";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+
+    .hub-name::before {
+      transform: translateX(-1px);
+      color: rgba(255, 70, 120, .42);
+    }
+
+    .hub-name::after {
+      transform: translateX(1px);
+      color: rgba(80, 220, 255, .42);
+    }
+
+    .support-button.itch {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      align-items: center;
+      text-align: left;
+      padding: 18px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.24), rgba(255,255,255,.055) 35%, rgba(0,0,0,.14)),
+        linear-gradient(135deg, #ff7a7a 0%, #fa5c5c 46%, #d84444 100%) !important;
+      color: #fff !important;
+      border-color: rgba(255,210,210,.42) !important;
+      animation: softGlow 2.8s ease-in-out infinite;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.22),
+        inset 0 -1px 0 rgba(0,0,0,.42),
+        0 6px 14px rgba(0,0,0,.32),
+        0 0 18px rgba(250,92,92,.18) !important;
+    }
+
+    .itch-logo {
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,.96);
+      color: #fa5c5c;
+      border: 2px solid rgba(255,255,255,.7);
+      box-shadow:
+        inset 0 -2px 0 rgba(0,0,0,.08),
+        0 6px 12px rgba(0,0,0,.22);
+      font-size: 0;
+      flex: 0 0 auto;
+    }
+
+    .itch-logo svg {
+      width: 34px;
+      height: 34px;
+      display: block;
+      fill: currentColor;
+    }
+
+    .support-button-copy {
+      display: grid;
+      gap: 6px;
+    }
+
+    .support-button-main {
+      display: block;
+      color: #fff;
+      font-size: 18px;
+      line-height: 1.1;
+      letter-spacing: .01em;
+      text-transform: uppercase;
+    }
+
+    .support-button-text {
+      display: block;
+      color: rgba(255,255,255,.88);
+      font-size: 13px;
+      line-height: 1.35;
+      font-weight: 750;
+    }
+
+    @keyframes softGlow {
+      0%, 100% {
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,.20),
+          inset 0 -1px 0 rgba(0,0,0,.42),
+          0 6px 14px rgba(0,0,0,.32),
+          0 0 10px rgba(250,92,92,.16),
+          0 0 0 rgba(250,92,92,0) !important;
+        filter: brightness(1);
+      }
+
+      50% {
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,.28),
+          inset 0 -1px 0 rgba(0,0,0,.42),
+          0 8px 18px rgba(0,0,0,.38),
+          0 0 20px rgba(250,92,92,.38),
+          0 0 42px rgba(250,92,92,.20) !important;
+        filter: brightness(1.06);
+      }
     }
 
     .devlog {
@@ -1094,7 +1247,7 @@
     @media (max-width: 700px) {
       .mini-widgets { grid-template-columns: 1fr; }
       .mini-widget { min-height: auto; }
-      .support-follow-actions { grid-template-columns: 1fr; }
+      .support-buttons { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 560px) {
@@ -1251,11 +1404,28 @@
     <div class="footer">
       <div>By Artemy Zen · v 0.1.3</div>
       <div class="beta-note">Beta version. Render may not perfectly match preview yet. Development is in progress.</div>
-      <div class="support-follow">
-        <div class="support-follow-title">Support / Follow</div>
-        <div class="support-follow-actions">
-          <a href="https://t.me/archichtotodelajet" target="_blank" rel="noopener">Telegram</a>
-          <a class="itch" href="https://artemyzen.itch.io/attaq-vinyl-wrecker" target="_blank" rel="noopener">Support on Itch Io</a>
+      <div class="support-block">
+        <div class="support-title">Support / Follow</div>
+
+        <div class="support-buttons">
+          <a class="support-button hub" href="https://artemyzen.github.io/artemyzen/" target="_blank" rel="noopener">
+            <span class="hub-name">ARTEMY ZEN</span>
+          </a>
+
+          <a class="support-button itch" href="https://artemyzen.itch.io/attaq-vinyl-wrecker" target="_blank" rel="noopener">
+            <span class="itch-logo" aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="img">
+                <path d="M4.2 3.2h15.6l1.2 4.6v2.1c0 1.1-.9 2-2 2-.8 0-1.5-.5-1.8-1.2-.3.7-1 1.2-1.8 1.2s-1.5-.5-1.8-1.2c-.3.7-1 1.2-1.8 1.2s-1.5-.5-1.8-1.2c-.3.7-1 1.2-1.8 1.2s-1.5-.5-1.8-1.2c-.3.7-1 1.2-1.8 1.2-1.1 0-2-.9-2-2V7.8l1.4-4.6Zm2.1 9.9c.7.4 1.5.4 2.2.1.6-.2 1.1-.7 1.5-1.2.4.5.9 1 1.5 1.2.7.3 1.5.3 2.2 0 .6-.3 1.1-.7 1.5-1.2.4.5.9.9 1.5 1.2.6.3 1.3.3 1.9.1v5.1c0 1.4-1.1 2.4-2.4 2.4H7.8c-1.4 0-2.4-1.1-2.4-2.4v-5.1c.3 0 .6-.1.9-.2Zm3.2 2.1c-.4 0-.7.3-.7.7v1.9c0 .4.3.7.7.7h5c.4 0 .7-.3.7-.7v-1.9c0-.4-.3-.7-.7-.7h-5Z" />
+              </svg>
+            </span>
+
+            <span class="support-button-copy">
+              <span class="support-button-main">SUPPORT ME ON ITCH IO</span>
+              <span class="support-button-text">
+                This tool is free online. If it helped your project, you can support me on itch.io. The paid version includes the same tool as an offline HTML file.
+              </span>
+            </span>
+          </a>
         </div>
       </div>
       <div class="devlog">
